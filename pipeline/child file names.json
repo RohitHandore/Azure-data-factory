@@ -17,13 +17,7 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DelimitedText2",
-						"type": "DatasetReference",
-						"parameters": {
-							"FolderName": {
-								"value": "@pipeline().parameters.FolderName",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"childItems"
@@ -39,11 +33,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"FolderName": {
-				"type": "string"
-			}
-		},
 		"annotations": [
 			"@pipeline().parameters.FolderName"
 		],
