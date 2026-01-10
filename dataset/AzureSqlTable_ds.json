@@ -1,0 +1,27 @@
+{
+	"name": "AzureSqlTable_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_ls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "orderId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "orderunit",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "expandRange"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

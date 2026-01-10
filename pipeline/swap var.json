@@ -1,0 +1,132 @@
+{
+	"name": "swap var",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "left",
+					"value": {
+						"value": "@take(variables('inputarr'),pipeline().parameters.index1)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable2",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "right",
+					"value": {
+						"value": "@skip(variables('inputarr'),add(pipeline().parameters.index2,1))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable3",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Set variable2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "output",
+					"value": {
+						"value": "@createArray(variables('left'),variables('inputarr')[pipeline().parameters.index2],variables('inputarr')[pipeline().parameters.index1],variables('right'))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable4",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Set variable3",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "finalarr",
+					"value": {
+						"value": "@json(concat('[',replace(replace(string(variables('output')),'[',''),']',''),']'))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"index1": {
+				"type": "int",
+				"defaultValue": 3
+			},
+			"index2": {
+				"type": "int",
+				"defaultValue": 4
+			}
+		},
+		"variables": {
+			"inputarr": {
+				"type": "Array",
+				"defaultValue": [
+					1,
+					2,
+					3,
+					4,
+					5
+				]
+			},
+			"left": {
+				"type": "Array"
+			},
+			"right": {
+				"type": "Array"
+			},
+			"output": {
+				"type": "Array"
+			},
+			"finalarr": {
+				"type": "Array"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-01-08T09:26:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

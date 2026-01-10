@@ -1,0 +1,9 @@
+{
+	"name": "DataFactory-EastUStudy",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "64a53718-5184-42c7-a7e7-a32f458d8b48",
+		"tenantId": "5ebf312f-5d36-4308-b528-99539d4323b4"
+	}
+}
