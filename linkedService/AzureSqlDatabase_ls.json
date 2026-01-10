@@ -1,6 +1,5 @@
 {
 	"name": "AzureSqlDatabase_ls",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureSqlDatabase",
@@ -11,7 +10,15 @@
 			"trustServerCertificate": false,
 			"authenticationType": "SQL",
 			"userName": "Rohit",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQENDMUY5NzE3LTZEQ0YtNDU0Ri05NjIzLTgzQTk2NTlFRTFERF81NjA5NDVmZi04MjBiLTQ3MjktODJjOC0wZTA3NDI0NmM5NWUiDQp9"
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_AzureKeyVault1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sqlbdconnectionstring"
+			}
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
