@@ -15,10 +15,11 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": {
+				"fileName": {
 					"value": "@dataset().filename",
 					"type": "Expression"
 				},
+				"folderPath": "copybeavor",
 				"fileSystem": "data"
 			},
 			"columnDelimiter": ",",
