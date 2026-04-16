@@ -73,7 +73,8 @@
 									}
 								},
 								"fieldList": [
-									"lastModified"
+									"lastModified",
+									"itemName"
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
@@ -114,7 +115,7 @@
 										"typeProperties": {
 											"variableName": "lastModified",
 											"value": {
-												"value": "@activity('Get Metadata1').output.lastModified",
+												"value": "@activity('Get Metadata2').output.lastModified",
 												"type": "Expression"
 											}
 										}
@@ -138,7 +139,7 @@
 										"typeProperties": {
 											"variableName": "fileName",
 											"value": {
-												"value": "@activity('Get Metadata2').output.childItems.name",
+												"value": "@activity('Get Metadata2').output.itemName",
 												"type": "Expression"
 											}
 										}
@@ -155,7 +156,8 @@
 				"type": "String"
 			},
 			"lastModified": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "2000-04-10T05:47:25Z"
 			}
 		},
 		"annotations": []
