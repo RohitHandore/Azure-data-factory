@@ -1,12 +1,18 @@
 {
-	"name": "DelimitedText3",
+	"name": "DelimitedText4",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "raw_to_target",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"filename": {
+			"p_container": {
+				"type": "string"
+			},
+			"p_folder": {
+				"type": "string"
+			},
+			"p_file": {
 				"type": "string"
 			}
 		},
@@ -15,11 +21,18 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": {
-					"value": "@dataset().filename",
+				"fileName": {
+					"value": "@dataset().p_file",
 					"type": "Expression"
 				},
-				"fileSystem": "data"
+				"folderPath": {
+					"value": "@dataset().p_folder",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().p_container",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "limit_rows per file",
 	"properties": {
 		"activities": [
 			{
@@ -20,6 +20,7 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
+							"wildcardFolderPath": "copybeavor",
 							"wildcardFileName": "*",
 							"enablePartitionDiscovery": false
 						},
@@ -30,11 +31,12 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings",
-							"copyBehavior": "FlattenHierarchy"
+							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
+							"maxRowsPerFile": 1,
+							"fileNamePrefix": "",
 							"quoteAllText": true,
 							"fileExtension": ".txt"
 						}
@@ -64,7 +66,7 @@
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2026-04-08T09:13:10Z"
+		"lastPublishTime": "2026-04-08T14:55:12Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

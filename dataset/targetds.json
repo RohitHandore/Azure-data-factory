@@ -1,16 +1,31 @@
 {
-	"name": "DelimitedText1",
+	"name": "targetds",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "raw_to_target",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"p_container": {
+				"type": "string"
+			},
+			"p_folder": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "data"
+				"folderPath": {
+					"value": "@dataset().p_folder",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().p_container",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
@@ -19,15 +34,19 @@
 		},
 		"schema": [
 			{
+				"name": "id",
 				"type": "String"
 			},
 			{
+				"name": "name",
 				"type": "String"
 			},
 			{
+				"name": "salary",
 				"type": "String"
 			},
 			{
+				"name": "department",
 				"type": "String"
 			}
 		]

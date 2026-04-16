@@ -1,5 +1,5 @@
 {
-	"name": "pipeline3",
+	"name": "Incremental file load datetime",
 	"properties": {
 		"activities": [
 			{
@@ -16,8 +16,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText1",
-						"type": "DatasetReference"
+						"referenceName": "targetds",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_container": "target",
+							"p_folder": "folder"
+						}
 					},
 					"fieldList": [
 						"childItems"
@@ -64,17 +68,19 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataset": {
-									"referenceName": "DelimitedText3",
+									"referenceName": "DelimitedText4",
 									"type": "DatasetReference",
 									"parameters": {
-										"filename": {
+										"p_container": "target",
+										"p_folder": "folder",
+										"p_file": {
 											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
 								},
 								"fieldList": [
-									"childItems"
+									"lastModified"
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
@@ -100,34 +106,23 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@empty(activity('Get Metadata2').output.childItems)",
+									"value": "@less(variables('temp_lastmodi'),activity('Get Metadata2').output.lastModified)",
 									"type": "Expression"
 								},
-								"ifFalseActivities": [
-									{
-										"name": "Append variable2",
-										"type": "AppendVariable",
-										"dependsOn": [],
-										"userProperties": [],
-										"typeProperties": {
-											"variableName": "nonempty",
-											"value": {
-												"value": "@item().name",
-												"type": "Expression"
-											}
-										}
-									}
-								],
 								"ifTrueActivities": [
 									{
-										"name": "Append variable1",
-										"type": "AppendVariable",
+										"name": "Set variable1",
+										"type": "SetVariable",
 										"dependsOn": [],
+										"policy": {
+											"secureOutput": false,
+											"secureInput": false
+										},
 										"userProperties": [],
 										"typeProperties": {
-											"variableName": "empty",
+											"variableName": "temp_lastmodi",
 											"value": {
-												"value": "@item().name",
+												"value": "@activity('Get Metadata2').output.lastModified",
 												"type": "Expression"
 											}
 										}
@@ -139,8 +134,8 @@
 				}
 			},
 			{
-				"name": "Lookup1",
-				"type": "Lookup",
+				"name": "Copy data1",
+				"type": "Copy",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
@@ -159,31 +154,72 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "\n\ninsert into file_count\nselect '@{variables('empty')}','@{variables('nonempty')}'\n\nselect 1 as output",
-							"type": "Expression"
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": {
+								"value": "@variables('max_val')",
+								"type": "Expression"
+							},
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
 						},
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
-					"dataset": {
-						"referenceName": "AzureSqlTable1",
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText5",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_cont": "target",
+							"p_fol": "folder"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedTextsink",
 						"type": "DatasetReference"
 					}
-				}
+				]
 			}
 		],
 		"variables": {
-			"empty": {
-				"type": "Array"
+			"temp_lastmodi": {
+				"type": "String",
+				"defaultValue": "2000-04-10T05:47:25Z"
 			},
-			"nonempty": {
-				"type": "Array"
+			"max_val": {
+				"type": "String",
+				"defaultValue": "2000-04-10T05:47:25Z"
 			}
 		},
 		"annotations": [],
-		"lastPublishTime": "2026-04-14T10:19:24Z"
+		"lastPublishTime": "2026-04-10T12:43:15Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

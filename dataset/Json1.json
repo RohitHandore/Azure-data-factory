@@ -1,23 +1,21 @@
 {
-	"name": "DelimitedText2",
+	"name": "Json1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "raw_to_target",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "target"
-			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
+				"fileName": "hierarchical_employees.json",
+				"folderPath": "copybeavor",
+				"fileSystem": "data"
+			}
 		},
-		"schema": []
+		"schema": {}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

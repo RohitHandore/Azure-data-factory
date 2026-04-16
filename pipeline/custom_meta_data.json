@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "custom_meta_data",
 	"properties": {
 		"activities": [
 			{
@@ -20,7 +20,8 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
+							"wildcardFolderPath": "copybeavor",
+							"wildcardFileName": "sample_data_2.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -28,16 +29,10 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings",
-							"copyBehavior": "FlattenHierarchy"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -57,14 +52,14 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DelimitedText2",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2026-04-08T09:13:10Z"
+		"lastPublishTime": "2026-04-08T14:55:13Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
