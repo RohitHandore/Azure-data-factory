@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfpro1011"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"AzureSqlDatabase_ls_password": {
+			"value": ""
+		},
+		"Rawcsv_accountKey": {
+			"value": ""
+		},
+		"raw_to_target_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://adfsampledata.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "servermydbrohit.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "mydb"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "Rohit"
+		},
+		"AzureSqlDatabase_ls_properties_typeProperties_server": {
+			"value": "serveradf.database.windows.net"
+		},
+		"AzureSqlDatabase_ls_properties_typeProperties_database": {
+			"value": "database"
+		},
+		"AzureSqlDatabase_ls_properties_typeProperties_userName": {
+			"value": "Rohit"
+		},
+		"HttpServerr_ls_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"Rawcsv_properties_typeProperties_url": {
+			"value": "https://adfsampledata.dfs.core.windows.net/"
+		},
+		"RestService_properties_typeProperties_url": {
+			"value": "https://dummy.restapiexample.com/api/v1/employees"
+		},
+		"raw_to_target_properties_typeProperties_url": {
+			"value": "https://storageacc1011.dfs.core.windows.net/"
+		}
+	}
+}
