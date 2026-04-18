@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "copybeavor",
+				"fileName": "orders (1).csv",
+				"folderPath": "DATe",
 				"fileSystem": "data"
 			},
 			"columnDelimiter": ",",
