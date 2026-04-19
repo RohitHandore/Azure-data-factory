@@ -1,0 +1,29 @@
+{
+	"name": "Excel1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "raw_to_target",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sheetName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": {
+				"value": "@dataset().sheetName",
+				"type": "Expression"
+			},
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "sample_multisheet.xlsx",
+				"folderPath": "DATe",
+				"fileSystem": "data"
+			}
+		},
+		"schema": []
+	}
+}
